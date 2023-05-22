@@ -1,0 +1,14 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "50c6ad67b8af7f7817b12aa620244b7367ee03c9f9d903d1c5242d55e582e054"
+build_start_time: [1684746273, 389338000]
+build_end_time: [1684746274, 864627000]
+inputs:
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/AppDelegate.swift": [1684698676, 285428541]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/Extensions/Error+Extension.swift": [1684714207, 942398135]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/Model/ModelDataStructures.swift": [1684714207, 968179950]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/Model/PersonsModelswift.swift": [1684712147, 817064109]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/Model/PipedriveAPIClient.swift": [1684714359, 38350252]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/Protocols/PropertyLoopable.swift": [1684714207, 919355484]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/SceneDelegate.swift": [1684698676, 266888637]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/ViewControllers/PersonDetailsViewController.swift": [1684712147, 855544540]
+  "/Users/ashpak/Projects/PersonalProjects/Pipedrive/Pipedrive/ViewControllers/PersonsViewController.swift": [1684712147, 826348269]
