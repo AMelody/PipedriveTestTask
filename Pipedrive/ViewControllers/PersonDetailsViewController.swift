@@ -9,16 +9,13 @@ import UIKit
 
 // MARK: -
 
-class PersonDetailsViewController: UIViewController  {
+class PersonDetailsViewController: UITableViewController  {
 
     // MARK: - Interface
 
-    var person: Person? {
+    func setPerson(_ person: Person) {
 
-        didSet {
-
-            itemsToDisplay = Self.makeItemsToDisplay(person)
-        }
+        itemsToDisplay = Self.makeItemsToDisplay(person)
     }
 
     // MARK: - UIViewController
@@ -26,16 +23,11 @@ class PersonDetailsViewController: UIViewController  {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-
-        personDetailsTableView.dataSource = self
     }
 
     // MARK: - Private
 
     private typealias ItemToDisplay = (String, Any)
-
-    private static let stringCellIdentifier = "personDetailsCell"
-    @IBOutlet private weak var personDetailsTableView: UITableView!
 
     private var itemsToDisplay = [ItemToDisplay]() {
 
@@ -43,20 +35,12 @@ class PersonDetailsViewController: UIViewController  {
 
             if isViewLoaded{
 
-                DispatchQueue.main.async {
-
-                    self.personDetailsTableView.reloadData()
-                }
+                self.tableView.reloadData()
             }
         }
     }
 
-    private static func makeItemsToDisplay(_ person: Person?) -> [ItemToDisplay] {
-
-        guard let person else {
-
-            return []
-        }
+    private static func makeItemsToDisplay(_ person: Person) -> [ItemToDisplay] {
 
         var result = [ItemToDisplay]()
         for item in person.allProperties() {
@@ -69,23 +53,20 @@ class PersonDetailsViewController: UIViewController  {
             $0.0 <= $1.0
         })
     }
-}
 
-// MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
-extension PersonDetailsViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
 
         itemsToDisplay.count
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         itemsToDisplay[section].0
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         let objectToCheck = itemsToDisplay[section].1
         switch objectToCheck {
@@ -104,15 +85,13 @@ extension PersonDetailsViewController: UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.stringCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "allPersonDetailsCell", for: indexPath)
         let objectToCheck = itemsToDisplay[indexPath.section].1
         cell.contentConfiguration = Self.makeContentConfiguration(cell, dataSource: objectToCheck, indexPath: indexPath)
         return cell
     }
-
-    // MARK: - Private
 
     private static func makeContentConfiguration(
 

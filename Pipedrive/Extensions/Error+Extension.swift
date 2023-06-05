@@ -11,13 +11,6 @@ import Foundation
 
 extension Error {
 
-    var isURLSessionCancelled: Bool {
-        let error = self as NSError
-        guard error.domain == URLError.errorDomain else { return false }
-
-        return error.code == URLError.cancelled.rawValue
-    }
-
     var noNetworkConnection: Bool {
         let error = self as NSError
         guard error.domain == URLError.errorDomain else { return false }

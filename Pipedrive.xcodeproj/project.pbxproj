@@ -19,9 +19,12 @@
 		CD6228492A19522800E30DD4 /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6228482A19522800E30DD4 /* PersonDetailsViewController.swift */; };
 		CD62285B2A19632F00E30DD4 /* PipedriveAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62285A2A19632F00E30DD4 /* PipedriveAPIClient.swift */; };
 		CD62285F2A19793D00E30DD4 /* ModelDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62285E2A19793D00E30DD4 /* ModelDataStructures.swift */; };
-		CD6228612A19901500E30DD4 /* PersonsModelswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6228602A19901500E30DD4 /* PersonsModelswift.swift */; };
+		CD6228612A19901500E30DD4 /* PersonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6228602A19901500E30DD4 /* PersonsModel.swift */; };
 		CD6228662A1AD22E00E30DD4 /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6228652A1AD22E00E30DD4 /* Error+Extension.swift */; };
 		CD6228692A1AD7B500E30DD4 /* PropertyLoopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6228682A1AD7B500E30DD4 /* PropertyLoopable.swift */; };
+		CDBD2A542A2D0C4900742F57 /* PersonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD2A532A2D0C4900742F57 /* PersonsTableViewController.swift */; };
+		CDBD2A662A2D307F00742F57 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD2A652A2D307F00742F57 /* UIAlertController+Extension.swift */; };
+		CDBD2A682A2D409A00742F57 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD2A672A2D409A00742F57 /* PersonViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +61,12 @@
 		CD6228482A19522800E30DD4 /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
 		CD62285A2A19632F00E30DD4 /* PipedriveAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipedriveAPIClient.swift; sourceTree = "<group>"; };
 		CD62285E2A19793D00E30DD4 /* ModelDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataStructures.swift; sourceTree = "<group>"; };
-		CD6228602A19901500E30DD4 /* PersonsModelswift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsModelswift.swift; sourceTree = "<group>"; };
+		CD6228602A19901500E30DD4 /* PersonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsModel.swift; sourceTree = "<group>"; };
 		CD6228652A1AD22E00E30DD4 /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		CD6228682A1AD7B500E30DD4 /* PropertyLoopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyLoopable.swift; sourceTree = "<group>"; };
+		CDBD2A532A2D0C4900742F57 /* PersonsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsTableViewController.swift; sourceTree = "<group>"; };
+		CDBD2A652A2D307F00742F57 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		CDBD2A672A2D409A00742F57 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				CD62281A2A1936B100E30DD4 /* PersonsViewController.swift */,
+				CDBD2A532A2D0C4900742F57 /* PersonsTableViewController.swift */,
+				CDBD2A672A2D409A00742F57 /* PersonViewController.swift */,
 				CD6228482A19522800E30DD4 /* PersonDetailsViewController.swift */,
 			);
 			path = ViewControllers;
@@ -155,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				CD62285E2A19793D00E30DD4 /* ModelDataStructures.swift */,
-				CD6228602A19901500E30DD4 /* PersonsModelswift.swift */,
+				CD6228602A19901500E30DD4 /* PersonsModel.swift */,
 				CD62285A2A19632F00E30DD4 /* PipedriveAPIClient.swift */,
 			);
 			path = Model;
@@ -165,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				CD6228652A1AD22E00E30DD4 /* Error+Extension.swift */,
+				CDBD2A652A2D307F00742F57 /* UIAlertController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -310,10 +319,13 @@
 			files = (
 				CD62285F2A19793D00E30DD4 /* ModelDataStructures.swift in Sources */,
 				CD6228492A19522800E30DD4 /* PersonDetailsViewController.swift in Sources */,
+				CDBD2A662A2D307F00742F57 /* UIAlertController+Extension.swift in Sources */,
 				CD6228662A1AD22E00E30DD4 /* Error+Extension.swift in Sources */,
 				CD62281B2A1936B100E30DD4 /* PersonsViewController.swift in Sources */,
+				CDBD2A542A2D0C4900742F57 /* PersonsTableViewController.swift in Sources */,
 				CD62285B2A19632F00E30DD4 /* PipedriveAPIClient.swift in Sources */,
-				CD6228612A19901500E30DD4 /* PersonsModelswift.swift in Sources */,
+				CDBD2A682A2D409A00742F57 /* PersonViewController.swift in Sources */,
+				CD6228612A19901500E30DD4 /* PersonsModel.swift in Sources */,
 				CD6228172A1936B100E30DD4 /* AppDelegate.swift in Sources */,
 				CD6228692A1AD7B500E30DD4 /* PropertyLoopable.swift in Sources */,
 				CD6228192A1936B100E30DD4 /* SceneDelegate.swift in Sources */,

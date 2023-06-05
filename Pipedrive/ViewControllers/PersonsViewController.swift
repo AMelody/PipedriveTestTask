@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PersonsViewController.swift
 //  Pipedrive
 //
 //  Created by Anastasiia Shpak on 5/20/23.
@@ -17,20 +17,32 @@ class PersonsViewController: UIViewController  {
 
         super.viewDidLoad()
 
-        personsTableView.dataSource = self
-        personsTableView.delegate = self
+        personsTableViewController.model = model
+        personsTableViewController.delegate = self
 
+        let tableView = personsTableViewController.tableView!
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(tableView)
+
+        let safeArea = view.safeAreaLayoutGuide
+        tableView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 0.0).isActive = true
+        tableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0.0).isActive = true
+        tableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: 0.0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0.0).isActive = true
+
+        view.setNeedsLayout()
+        
         reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == Self.nextSceneSegueIdentifier,
-            let nextScene = segue.destination as? PersonDetailsViewController,
-            let indexPath = personsTableView.indexPathForSelectedRow {
+           let nextScene = segue.destination as? PersonViewController,
+           let persoon = sender as? Person {
 
-            let selectedPerson = model.persons?[indexPath.row]
-            nextScene.person = selectedPerson
+                nextScene.person = persoon
         }
     }
 
@@ -43,15 +55,14 @@ class PersonsViewController: UIViewController  {
         case dataPresentation
     }
 
-    @IBOutlet private weak var personsTableView: UITableView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var noDataLabel: UILabel!
     @IBOutlet private weak var reloadDataButton: UIButton!
 
     private static let nextSceneSegueIdentifier = "showPersonDetails"
-    private static let cellIdentifier = "personCell"
 
-    private let model = PersonsModel()
+    private let model: PersonsModelInterface = PersonsModel(client: PipedriveAPIClient())
+    private let personsTableViewController: PersonsTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PersonsTableViewController") as! PersonsTableViewController
 
     @IBAction private func handleReloadButtonClick(_ sender: Any) {
 
@@ -62,26 +73,21 @@ class PersonsViewController: UIViewController  {
 
         updateUIWithState(.operationInProgress)
 
-        model.loadData { error in
+        model.loadData { result in
 
-            if let error {
+            switch result {
 
-                self.showErrorAlert(error)
+            case let .success(persons):
+
+                self.updateUIWithState(persons.count > 0 ? .dataPresentation : .noData)
+
+            case let .failure(error):
+
+                UIAlertController.presentAlert(for: self, with: error)
                 self.updateUIWithState(.noData)
-
-            } else {
-
-                if let personsCounter = self.model.persons?.count, personsCounter > 0 {
-
-                    self.updateUIWithState(.dataPresentation)
-
-                } else {
-
-                    self.updateUIWithState(.noData)
-                }
             }
 
-            self.personsTableView.reloadData()
+            self.personsTableViewController.tableView.reloadData()
         }
     }
 
@@ -95,7 +101,7 @@ class PersonsViewController: UIViewController  {
             activityIndicatorView.stopAnimating()
             noDataLabel.isHidden = false
             reloadDataButton.isHidden = false
-            personsTableView.isHidden = true
+            personsTableViewController.tableView.isHidden = true
 
         case .dataPresentation:
 
@@ -103,7 +109,7 @@ class PersonsViewController: UIViewController  {
             activityIndicatorView.stopAnimating()
             noDataLabel.isHidden = true
             reloadDataButton.isHidden = true
-            personsTableView.isHidden = false
+            personsTableViewController.tableView.isHidden = false
 
         case .operationInProgress:
 
@@ -111,51 +117,22 @@ class PersonsViewController: UIViewController  {
             activityIndicatorView.startAnimating()
             noDataLabel.isHidden = true
             reloadDataButton.isHidden = true
-            personsTableView.isHidden = true
-
+            personsTableViewController.tableView.isHidden = true
         }
     }
-
-    private func showErrorAlert(_ error: PipedriveAPIError) {
-
-        let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - PersonsTableViewControllerDelegate
 
-extension PersonsViewController: UITableViewDataSource {
+extension PersonsViewController: PersonsTableViewControllerDelegate {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func personsTableViewController(
 
-        model.persons?.count ?? 0
-    }
+        _ viewController: PersonsTableViewController,
+        didRequesToPresentDetails person: Person
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    ) {
 
-        let person = model.persons![indexPath.row]
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath)
-        var content = cell.defaultContentConfiguration()
-
-        content.text = person.name
-        content.secondaryText = person.primaryEmail ?? ""
-
-        cell.contentConfiguration = content
-
-        return cell
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension PersonsViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        performSegue(withIdentifier: Self.nextSceneSegueIdentifier, sender: nil)
-        tableView.deselectRow(at: indexPath, animated: false)
+        performSegue(withIdentifier: Self.nextSceneSegueIdentifier, sender: person)
     }
 }
